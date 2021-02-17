@@ -9,6 +9,7 @@ tmux source-file ~/.tmux.conf
 git clone https://github.com/VundleVim/Vundle.vim.git ~/src/github.com/VundleVim/Vundle.vim
 
 # nvim
+mkdir -p ~/.config/nvim
 ln -sf ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
 nvim --headless +PlugInstall +qall
 
