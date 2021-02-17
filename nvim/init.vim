@@ -30,6 +30,7 @@ Plugin 'ruanyl/vim-gh-line'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'benizi/vim-automkdir'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'dracula/vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -71,3 +72,5 @@ nnoremap <space> za
 set list
 set listchars=tab:>-,trail:.,nbsp:.,space:.
 
+let g:dracula_colorterm = 0
+color dracula
