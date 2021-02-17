@@ -1,5 +1,5 @@
 # more packages
-sudo apt-get install -y ripgrep fzf neovim
+sudo apt-get install -y ripgrep neovim
 
 # tmux
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
