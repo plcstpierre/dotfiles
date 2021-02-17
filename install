@@ -1,4 +1,11 @@
+# more packages
+sudo apt-get install -y ripgrep fzf neovim
+
+# tmux
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 tmux source-file ~/.tmux.conf
 
-sudo apt-get install -y ripgrep fzf neovim
+# nvim
+ln -s ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+nvim --headless +PlugInstall +qall
+
