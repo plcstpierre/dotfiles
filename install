@@ -11,6 +11,6 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/src/github.com/VundleVim
 # nvim
 mkdir -p ~/.config/nvim
 ln -sf ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
-nvim --headless +PlugInstall +qall
+nvim --headless +PluginInstall +qall
 
 
