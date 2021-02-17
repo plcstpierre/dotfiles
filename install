@@ -5,7 +5,11 @@ sudo apt-get install -y ripgrep fzf neovim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 tmux source-file ~/.tmux.conf
 
+# vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/src/github.com/VundleVim/Vundle.vim
+
 # nvim
-ln -s ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+ln -sf ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
 nvim --headless +PlugInstall +qall
+
 
