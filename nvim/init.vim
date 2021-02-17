@@ -72,5 +72,43 @@ nnoremap <space> za
 set list
 set listchars=tab:>-,trail:.,nbsp:.,space:.
 
+" Dracula
 let g:dracula_colorterm = 0
 color dracula
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
+" Open NERDTree automatically when vim opens a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+map <F2> :mksession! ~/vim_session
+map <F3> :source ~/vim_session
+
+" Inverse tab mapping to shift + tab
+" for command mode
+nnoremap <S-Tab> <<
+" for insert mode
+inoremap <S-Tab> <C-d>
+
+" Stop wasting time with typo!
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
+
+" Go to mappings
+nmap <silent> Cd <Plug>(coc-definition)
+nmap <silent> Ct <Plug>(coc-type-definition)
+nmap <silent> Cp <Plug>(coc-implementation)
+nmap <silent> Cr <Plug>(coc-references)
+
+" Open fzf quickly
+nnoremap <C-P> :Files<CR>
+
+" Reload config quickly
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
