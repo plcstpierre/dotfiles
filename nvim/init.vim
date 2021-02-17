@@ -34,4 +34,40 @@ Plugin 'airblade/vim-gitgutter'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
+filetype on
+filetype indent on
+filetype plugin on
+
+" UTF-8 all the things!
+set encoding=utf-8
+
+syntax on
+
+" Line numbering
+set nu
+
+" Line hightlight
+set cursorline
+
+" line column
+set colorcolumn=120
+
+" System clipboard
+set clipboard=unnamed
+set clipboard+=unnamedplus
+
+" Move between split without mouse, by using navigation key of vim
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+" Whitespace
+set list
+set listchars=tab:>-,trail:.,nbsp:.,space:.
 
