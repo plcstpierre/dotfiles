@@ -1,16 +1,52 @@
-# more packages
-sudo apt-get install -y ripgrep neovim
+#!/usr/bin/env bash
 
-# tmux
-ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
-tmux source-file ~/.tmux.conf
+echo "Installing brew... "
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  which -s brew
+  if [[ $? != 0 ]]; then
+    # Install Homebrew
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+fi
+echo "OK"
 
-# vundle
-git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git ~/src/github.com/VundleVim/Vundle.vim
+echo "Updating brew... "
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  brew update > /dev/null
+fi
+echo "OK"
 
-# nvim
-mkdir -p ~/.config/nvim
-ln -sf ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
-nvim --headless +PluginInstall +qall
+echo -n "Installing packages... "
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  sudo apt-get install -y ripgrep neovim tmux
+fi
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  brew install neovim tmux ripgrep
+  brew install --cask docker alfred firefox spotify slack sequel-ace flux 1password iterm2
+fi
+echo "OK"
 
+echo "Configuring tmux... "
+ln -sf $HOME/src/github.com/plcstpierre/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+tmux source-file $HOME/.tmux.conf
+echo "OK"
+
+echo "Configuring Vundle... "
+if [ ! -d $HOME/src/github.com/VundleVim/Vundle.vim ]
+then
+    git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git $HOME/src/github.com/VundleVim/Vundle.vim
+else
+    git --git-dir=$HOME/src/github.com/VundleVim/Vundle.vim/.git pull > /dev/null
+fi
+echo "OK"
+
+echo "Configuring nvim... "
+mkdir -p $HOME/.config/nvim
+ln -sf $HOME/src/github.com/plcstpierre/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
+nvim --headless +PluginInstall +qall > /dev/null
+echo "OK"
+
+echo "Configuring bash... "
+grep -qxF 'source $HOME/src/github.com/plcstpierre/dotfiles/bash/bashprofile' $HOME/.bash_profile || echo 'source $HOME/src/github.com/plcstpierre/dotfiles/bash/bashprofile' >> $HOME/.bash_profile
+echo "OK"

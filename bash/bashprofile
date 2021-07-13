@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+alias ls="ls -la"
+
+function parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+function zut() {
+     fuck "$@" 
+}
+
+function tf() {
+     terraform "$@" 
+}
+
+eval $(thefuck --alias)
+
+# Prompt
+PS1="\[\033[95m\]\t\[\033[m\] \[\033[92m\]\u@\h \[\033[96;1m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\n\[\033[95;m\]➜ \[\033[m\]"
+
+# Case insensitive
+bind 'set completion-ignore-case on'
+
+export EDITOR="nvim"
+
+# Colour
+# export CLICOLOR=1
+
+# Go
+export GOPATH=$HOME/src/go
+export PATH=$GOPATH/bin:$PATH
+
+# pl-scripts
+export PATH=$HOME/src/plcstpierre/pl-repo/bin:$PATH
+
+# custom compiled binary
+export PATH=$HOME/bin:$PATH
+
+# Bash history
+## avoid duplicates.
+export HISTCONTROL=ignoredups:erasedups
+
+export HISTSIZE=30000
+
+## append history entries
+shopt -s histappend
+
+## after each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# fzf
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_OPTS='-m --height 50% --border'
+fi
+
+function rustenv() {
+	cwd="$(pwd)"
+	name="$(basename "$cwd")"
+
+	docker run -it --rm \
+		-v "${cwd}:/usr/local/src/${name}" \
+		--workdir "/usr/local/src/${name}" \
+		rust "$@"
+}
+
+function rubyenv() {
+	cwd="$(pwd)"
+	name="$(basename "$cwd")"
+
+	docker run -it --rm \
+		-v "${cwd}:/usr/local/src/${name}" \
+		--workdir "/usr/local/src/${name}" \
+		--entrypoint=/bin/bash \
+		ruby "$@"
+}
+
