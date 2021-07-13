@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ $SPIN ]; then
+  DOTFILES_DIR=$HOME/dotfiles
+else
+  DOTFILES_DIR=$HOME/src/github.com/plcstpierre/dotfiles
+fi
+
 echo "Installing brew... "
 if [[ "$OSTYPE" == "darwin"* ]]; then
   which -s brew
@@ -28,7 +34,7 @@ fi
 echo "OK"
 
 echo "Configuring tmux... "
-ln -sf $HOME/src/github.com/plcstpierre/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+ln -sf $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
 tmux source-file $HOME/.tmux.conf
 echo "OK"
 
@@ -43,10 +49,12 @@ echo "OK"
 
 echo "Configuring nvim... "
 mkdir -p $HOME/.config/nvim
-ln -sf $HOME/src/github.com/plcstpierre/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
+ln -sf $DOTFILES_DIR/nvim/init.vim $HOME/.config/nvim/init.vim
 nvim --headless +PluginInstall +qall > /dev/null
 echo "OK"
 
 echo "Configuring bash... "
-grep -qxF 'source $HOME/src/github.com/plcstpierre/dotfiles/bash/bashprofile' $HOME/.bash_profile || echo 'source $HOME/src/github.com/plcstpierre/dotfiles/bash/bashprofile' >> $HOME/.bash_profile
+if ! [ $SPIN ]; then
+  grep -qxF 'source $HOME/src/github.com/plcstpierre/dotfiles/bash/bashprofile' $HOME/.bash_profile || echo 'source $HOME/src/github.com/plcstpierre/dotfiles/bash/bashprofile' >> $HOME/.bash_profile
+fi
 echo "OK"

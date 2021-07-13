@@ -32,9 +32,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'benizi/vim-automkdir'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'dracula/vim'
-
 Plugin 'neoclide/coc.nvim'
-Plugin 'shopify/shadowenv.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
